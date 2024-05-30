@@ -1,10 +1,11 @@
-import styles from "./FormSeachEvaluation.module.css";
-import searchIcon from "../../../assets/icons/search.svg";
+import styles from "./InputForm.module.css";
+import SearchSVG from "../../iconsSVG/SearchSVG";
 
 interface InputProps {
   id: string;
   type: string;
   label: string;
+  placeholder: string;
   isActivated: boolean;
   informationUser: IInformationUser;
   handleSearch: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -15,6 +16,7 @@ export default function InputForm({
   id,
   type,
   label,
+  placeholder,
   isActivated,
   informationUser,
   handleSearch,
@@ -31,18 +33,16 @@ export default function InputForm({
             name={id}
             type={type}
             id={id}
-            className={styles.formInput}
-            placeholder={label}
+            className={`${styles.formInput} ${
+              informationUser[id as keyof IInformationUser] &&
+              styles.input_activate
+            }`}
+            placeholder={placeholder}
             value={informationUser[id as keyof IInformationUser]}
             onChange={handleChange}
-
           />
           <button className={styles.containerSearch} onClick={handleSearch}>
-            <img
-              src={searchIcon}
-              alt="searchIcon"
-              className={styles.searchIcon}
-            />
+            <SearchSVG color={"#01c19e"} />
           </button>
         </>
       ) : (
@@ -51,7 +51,10 @@ export default function InputForm({
           type={type}
           id={id}
           onChange={handleChange}
-          className={`${styles.formInput} ${!isActivated ? styles.invalid : styles.valid}`}
+          className={`${styles.formInput} ${
+            informationUser[id as keyof IInformationUser] &&
+            styles.input_activate
+          }`}
           placeholder={label}
           disabled={true}
           value={informationUser[id as keyof IInformationUser]}

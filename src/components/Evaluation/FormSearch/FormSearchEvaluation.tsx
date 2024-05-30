@@ -5,6 +5,7 @@ import InputForm from "./InputForm";
 import SelectForm from "./SelectForm";
 import dataUser from "../../../data/dataUser.json";
 import { Link } from "react-router-dom";
+import { listInput, listSelect } from "../helpers/helperData";
 
 const INITIAL_INFORMATION_FORM_USER: IInformationFormUser = {
   codigo: "",
@@ -25,8 +26,6 @@ const INITIAL_INFORMATION_USER: IInformationUser = {
 };
 
 export function FormSearchEvaluation() {
-  const [isActivated, setIsActivated] = useState(false);
-
   const [informationUser, setInformationUser] = useState(
     INITIAL_INFORMATION_USER
   );
@@ -35,17 +34,22 @@ export function FormSearchEvaluation() {
     INITIAL_INFORMATION_FORM_USER
   );
 
-  const handleChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const [isInputActivate, setIsInputActivate] = useState(false);
+
+  const [isButtonActivate, setIsButtonActivate] = useState(false);
+
+  const toggleButtonActivate = () => {
+    setIsButtonActivate(!isButtonActivate);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInformationUser({
       ...informationUser,
       [e.target.name]: e.target.value,
     });
-
   };
+
+  console.log(informationUser);
 
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -54,13 +58,13 @@ export function FormSearchEvaluation() {
 
     const findUser = dataUser.find((user) => user.codigo === codigo);
 
-    console.log(findUser);
-
     if (!findUser) {
-
-      setInformationFormUser({ ...informationFormUser, ...INITIAL_INFORMATION_FORM_USER })
-      setInformationUser({ ...informationUser, ...INITIAL_INFORMATION_USER })
-      setIsActivated(false)
+      setInformationFormUser({
+        ...informationFormUser,
+        ...INITIAL_INFORMATION_FORM_USER,
+      });
+      setInformationUser({ ...informationUser, ...INITIAL_INFORMATION_USER });
+      setIsInputActivate(false);
     } else {
       setInformationFormUser({ ...informationFormUser, ...findUser });
       setInformationUser({
@@ -68,53 +72,9 @@ export function FormSearchEvaluation() {
         codigo: findUser.codigo,
         fullname: findUser.fullname,
       });
-      setIsActivated(true);
-
+      setIsInputActivate(true);
     }
   };
-
-
-  console.log(informationUser)
-
-  const listSelect = [
-    {
-      id: "facultad",
-      label: "Facultad",
-
-      options: ["Selecciona la facultad"],
-    },
-    {
-      id: "escuela",
-      label: "Escuela",
-
-      options: ["Selecciona la escuela"],
-    },
-    {
-      id: "cursos",
-      label: "Cursos",
-
-      options: ["Selecciona el curso"],
-    },
-    {
-      id: "evaluations",
-      label: " Tipo de evaluacion",
-
-      options: ["Selecciona la evaluación"],
-    },
-  ];
-
-  const listInput = [
-    {
-      id: "codigo",
-      type: "search",
-      label: "Codigo del docente",
-    },
-    {
-      id: "fullname",
-      type: "text",
-      label: "Apellidos y nombres",
-    },
-  ];
 
   return (
     <>
@@ -125,13 +85,14 @@ export function FormSearchEvaluation() {
 
       <form className={styles.form}>
         {listInput.map((input) => {
-          const { id, type, label } = input;
+          const { id, type, label, placeholder } = input;
           return (
             <InputForm
               id={id}
               type={type}
               label={label}
-              isActivated={isActivated}
+              placeholder={placeholder}
+              isActivated={isInputActivate}
               informationUser={informationUser}
               handleSearch={handleSearch}
               handleChange={handleChange}
@@ -140,7 +101,7 @@ export function FormSearchEvaluation() {
           );
         })}
         {listSelect.map((select) => {
-          const { id, options, label } = select;
+          const { id, options, label, placeholder } = select;
           const optionsSelect = informationFormUser[
             id as keyof IInformationFormUser
           ] as string[];
@@ -151,18 +112,28 @@ export function FormSearchEvaluation() {
             <SelectForm
               id={id}
               options={selectoptions}
+              placeholder={placeholder}
               label={label}
               key={id}
               handleChange={handleChange}
               informationUser={informationUser}
-              isActivated={isActivated}
+              isActivated={isInputActivate}
             />
           );
         })}
       </form>
-      <div className={styles.btnActions}>
+      <div
+        className={`${styles.btnActions} ${
+          isButtonActivate ? styles.buttonDisabled : ""
+        }`}
+      >
         <Link to={informationUser.evaluations}>
-          <button type="submit" className={styles.btnSend}>
+          <button
+            type="submit"
+            className={styles.btnSend}
+            disabled={!isInputActivate}
+            onClick={toggleButtonActivate}
+          >
             Iniciar evaluación
           </button>
         </Link>

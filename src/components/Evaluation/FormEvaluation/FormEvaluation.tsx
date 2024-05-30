@@ -35,7 +35,7 @@ export default function FormEvaluation() {
       <div>
         <div className={styles.btnActions}>
 
-          <button type="submit" className={styles.btnSend}>
+          <button type="submit" className={styles.btnSend} >
             Enviar evaluación
           </button>
 
