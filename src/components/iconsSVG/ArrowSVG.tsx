@@ -1,5 +1,3 @@
-import React from "react";
-
 function ArrowSVG({ color }: { color: string }) {
   return (
     <svg

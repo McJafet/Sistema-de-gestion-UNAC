@@ -1,5 +1,3 @@
-import React from "react";
-
 function CheckSVG({ color }: { color: string }) {
   return (
     <svg

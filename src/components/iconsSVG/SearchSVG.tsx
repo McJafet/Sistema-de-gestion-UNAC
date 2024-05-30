@@ -1,5 +1,3 @@
-import React from "react";
-
 function SearchSVG({ color }: { color: string }) {
   return (
     <svg
