@@ -1,59 +1,90 @@
-import { useEffect, useState } from "react";
-import styles from "./FormSeachEvaluation.module.css";
+import { useState, useRef } from "react";
+import styles from "./SelectForm.module.css";
+import ArrowSVG from "../../iconsSVG/ArrowSVG";
 
 interface SelectProps {
-    id: string;
-    label: string;
-    options: string[];
-    isActivated: boolean;
-    informationUser: IInformationUser;
-    handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  id: string;
+  label: string;
+  placeholder: string;
+  options: string[];
+  isActivated: boolean;
+  informationUser: IInformationUser;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function SelectForm({
-    id,
-    label,
-    options,
-    isActivated,
-    informationUser,
-    handleChange,
+  id,
+  label,
+  options,
+  placeholder,
+  isActivated,
+  informationUser,
+  handleChange,
 }: SelectProps) {
-    const initialSelectValue = informationUser[id as keyof IInformationUser] || options[0];
-    const [isInvalid, setIsInvalid] = useState(initialSelectValue === options[0]);
+  const [showOptions, setShowOptions] = useState(false);
+  const [value, setValue] = useState("");
+  const inputRefs = useRef<HTMLInputElement[]>([]);
 
-    const handleValidate = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setIsInvalid(e.target.value === options[0]);
-    };
+  const toggleShowOptions = () => {
+    setShowOptions(!showOptions);
+  };
 
-    useEffect(() => {
-        setIsInvalid(initialSelectValue === options[0]);
-    }, [initialSelectValue, options]);
+  const handleLabelClick = (index: number) => {
+    const input = inputRefs.current[index];
+    if (input) {
+      input.click();
+      setValue(input.value);
+    }
+  };
 
-    return (
-        <div className={styles.formField}>
-            <label htmlFor={id} className={styles.formLabel}>
-                {label}
-            </label>
-            <div className={styles.select}>
-                <select
-                    id={id}
-                    className={`${styles.formSelect} ${isInvalid ? styles.invalid : styles.valid}`}
-                    value={informationUser[id as keyof IInformationUser] || ""}
-                    onChange={(e) => {
-                        handleChange(e);
-                        handleValidate(e);
-                    }}
-                    disabled={!isActivated}
-                    name={id}
-                >
-                    {options.map((op: string) => (
-                        <option value={op} key={op} className={styles.options}>
-                            {op}
-                        </option>
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    handleChange(e);
+  };
 
-                    ))}
-                </select>
-            </div>
+  return (
+    <div className={styles.container}>
+      <p className={styles.label}>{label}</p>
+      <div
+        className={`${styles.formSelect} ${value && styles.option_isValidate}`}
+        onClick={toggleShowOptions}
+      >
+        <div className={styles.placeholder}>
+          {value === "" || showOptions ? (
+            <span>{placeholder}</span>
+          ) : (
+            <p>{value}</p>
+          )}
+          <div
+            className={`${styles.arrow} ${showOptions && styles.arrow_rotate}`}
+          >
+            <ArrowSVG color={"#938d8d"} />
+          </div>
         </div>
-    );
+
+        {showOptions && (
+          <div className={styles.options}>
+            {options.map((op, index) => (
+              <label
+                htmlFor={id + index}
+                className={`${styles.option} `}
+                onClick={() => handleLabelClick(index)}
+              >
+                {op}
+                <input
+                  ref={(el) => (inputRefs.current[index] = el!)}
+                  type="radio"
+                  name={id}
+                  id={id + index}
+                  className={styles.input}
+                  value={op}
+                  onChange={handleInputChange}
+                />
+              </label>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
