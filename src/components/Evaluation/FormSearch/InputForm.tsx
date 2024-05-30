@@ -43,6 +43,7 @@ export default function InputForm({
           <button className={styles.containerSearch} onClick={handleSearch}>
             <SearchSVG color={"#01c19e"} />
           </button>
+          <span>Para caso de prueba inserte el codigo 2912</span>
         </>
       ) : (
         <input
