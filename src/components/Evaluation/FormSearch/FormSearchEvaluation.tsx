@@ -6,6 +6,7 @@ import SelectForm from "./SelectForm";
 import dataUser from "../../../data/dataUser.json";
 import { Link } from "react-router-dom";
 import { listInput, listSelect } from "../helpers/helperData";
+import { useToggleButton } from "../../context/storeButton";
 
 const INITIAL_INFORMATION_FORM_USER: IInformationFormUser = {
   codigo: "",
@@ -36,11 +37,9 @@ export function FormSearchEvaluation() {
 
   const [isInputActivate, setIsInputActivate] = useState(false);
 
-  const [isButtonActivate, setIsButtonActivate] = useState(false);
+  const showButton = useToggleButton((state) => state.show);
 
-  const toggleButtonActivate = () => {
-    setIsButtonActivate(!isButtonActivate);
-  };
+  const toggleButton = useToggleButton((state) => state.toggleShowButton);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInformationUser({
@@ -48,8 +47,6 @@ export function FormSearchEvaluation() {
       [e.target.name]: e.target.value,
     });
   };
-
-  console.log(informationUser);
 
   const handleSearch = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -124,7 +121,7 @@ export function FormSearchEvaluation() {
       </form>
       <div
         className={`${styles.btnActions} ${
-          isButtonActivate ? styles.buttonDisabled : ""
+          showButton ? styles.buttonDisabled : ""
         }`}
       >
         <Link to={informationUser.evaluations}>
@@ -132,14 +129,17 @@ export function FormSearchEvaluation() {
             type="submit"
             className={styles.btnSend}
             disabled={!isInputActivate}
-            onClick={toggleButtonActivate}
+            onClick={() => toggleButton(!showButton)}
           >
             Iniciar evaluación
           </button>
         </Link>
-        <button type="submit" className={styles.btnCancel}>
-          Salir del sistema
-        </button>
+
+        <Link to={"/"}>
+          <button type="submit" className={styles.btnCancel}>
+            Salir del sistema
+          </button>
+        </Link>
       </div>
     </>
   );

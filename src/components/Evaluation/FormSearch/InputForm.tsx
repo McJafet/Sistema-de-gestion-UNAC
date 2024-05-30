@@ -17,7 +17,6 @@ export default function InputForm({
   type,
   label,
   placeholder,
-  isActivated,
   informationUser,
   handleSearch,
   handleChange,

@@ -8,7 +8,7 @@ interface IInformationUser {
 }
 
 interface IInformationEvaluation {
-  evaluation: string[];
+  evaluation: Evaluations[];
 }
 
 interface IInformationFormUser {
@@ -18,4 +18,14 @@ interface IInformationFormUser {
   escuela: string[];
   cursos: string[];
   evaluations: string[];
+}
+
+interface Evaluations {
+  name: string;
+  items: Item[];
+}
+
+interface Item {
+  id: string;
+  status: string;
 }

@@ -17,8 +17,6 @@ export default function SelectForm({
   label,
   options,
   placeholder,
-  isActivated,
-  informationUser,
   handleChange,
 }: SelectProps) {
   const [showOptions, setShowOptions] = useState(false);
@@ -69,6 +67,7 @@ export default function SelectForm({
                 htmlFor={id + index}
                 className={`${styles.option} `}
                 onClick={() => handleLabelClick(index)}
+                key={id + index}
               >
                 {op}
                 <input
