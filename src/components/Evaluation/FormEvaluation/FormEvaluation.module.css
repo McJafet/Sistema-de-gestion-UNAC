@@ -1,0 +1,110 @@
+/* FormEvaluation.module.css */
+
+.table {
+  width: 80%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 18px;
+  text-align: left;
+
+  background-color: white;
+}
+
+.table thead tr th {
+  background-color: #f5f5f5;
+
+  color: black;
+  text-align: left;
+  font-weight: bold;
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.row {
+  transition: background-color 0.3s ease;
+}
+
+.row:hover {
+  background-color: #f1f1f1;
+}
+
+.questions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.input {
+  display: none;
+}
+
+.label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  border: 2px solid #938d8d;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+  margin: 0 10px;
+}
+
+.label svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.selectedYes {
+  border-color: #01c19e;
+}
+
+.selectedNo {
+  border-color: #fb4d4d;
+}
+
+.input:checked + svg {
+  transform: scale(1.2);
+}
+
+.btnSend,
+.btnCancel {
+  width: 150px;
+  height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btnSend {
+  border-style: none;
+  color: white;
+  background-color: #01c19e;
+}
+
+.btnCancel {
+  border-style: none;
+  background-color: transparent;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.containerTable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

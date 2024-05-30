@@ -1,0 +1,74 @@
+[
+    {
+        "codigo": "2912",
+        "fullname": "Ramirez Veliz Juan Francisco",
+        "facultad": [
+            "Ingenieria Industrial y de sistemas"
+        ],
+        "escuela": [
+            "Sistemas"
+        ],
+        "cursos": [
+            "Analisis de sistemas",
+            "Proyecto de sistemas de informacion"
+        ],
+        "evaluations": [
+            "silabo",
+            "uso de la plataforma educativa"
+        ]
+    },
+    {
+        "codigo": "2714",
+        "fullname": "Zapata Villar Loyo Pepe",
+        "facultad": [
+            "Ingenieria Industrial y de sistemas"
+        ],
+        "escuela": [
+            "Sistemas"
+        ],
+        "cursos": [
+            "Contabilidad",
+            "Ingenieria economica y financiera"
+        ],
+        "evaluations": [
+            "silabo",
+            "uso de la plataforma educativa"
+        ]
+    },
+    {
+        "codigo": "1507",
+        "fullname": "Incacari Sancho Gerber Federico",
+        "facultad": [
+            "Ingenieria Industrial y de sistemas"
+        ],
+        "escuela": [
+            "Sistemas"
+        ],
+        "cursos": [
+            "Seguridad de la informacion"
+        ],
+        "evaluations": [
+            "silabo",
+            "uso de la plataforma educativa",
+            "tutoria"
+        ]
+    },
+    {
+        "codigo": "1177",
+        "fullname": "Huatay Enriquez Reenaty Amanda",
+        "facultad": [
+            "Ingenieria Industrial y de sistemas"
+        ],
+        "escuela": [
+            "Sistemas"
+        ],
+        "cursos": [
+            "Dinamica de Sistemas",
+            "Gestion de conocimiento"
+        ],
+        "evaluations": [
+            "silabo",
+            "uso de la plataforma educativa"
+        ]
+    }
+]
