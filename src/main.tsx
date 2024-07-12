@@ -5,6 +5,7 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Root from "./routes/Root";
 
+
 const router = createBrowserRouter([{ path: "*", element: <Root /> }]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
